@@ -12,7 +12,7 @@ class MangaFixtures extends Fixture
     {
         for($i = 1;$i <= 5; $i++){
             $article = new Manga();
-            $article->setTitle("Titre de l'article n°$i")
+            $article->setTitle("Titre du manga n°$i")
                     ->setAuthor("<p>Author du manga n°$i</p>")
                     ->setGenre("<p>genre du manga n°$i</p>")
                     ->setEditionF("<p>edition F du manga n°$i </p>")

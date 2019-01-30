@@ -5,42 +5,18 @@
 {% block body %}
 <section class="manga">
 
+    {% for manga in mangas %}
     <manga>
-        <h2>titre du manga</h2>
+        <h2>{{ manga.title }}</h2>
         <div class="metadata">Ajouter le 30/01/2019</div>
         <div class="content">
-            <img src="https://place-hold.it/300x500" alt=""><br>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Animi molestias ex impedit corporis. Delectus, culpa.</p>
-            <p>Quas dicta quisquam laborum aut reiciendis harum,
-                minima officia maxime eaque voluptas, omnis id maiores!</p>
-            <a href="{{ path('blog_show') }}" class="btn btn-primary">Description</a><br>
+            <img src="https://place-hold.it/300x500" alt="">
+            {{ manga.author | raw }}
+            {{ manga.editionF | raw  }}
+            {{ manga.editionJ | raw }}
+            <a href="{{ path('blog_show', {'id' : manga.id}) }}" class="btn btn-primary">Description</a>
         </div>
-    </manga>
-    <manga>
-        <h2>titre du manga</h2>
-        <div class="metadata">Ajouter le 30/01/2019</div>
-        <div class="content">
-            <img src="https://place-hold.it/300x500" alt=""><br>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Animi molestias ex impedit corporis. Delectus, culpa.</p>
-            <p>Quas dicta quisquam laborum aut reiciendis harum,
-                minima officia maxime eaque voluptas, omnis id maiores!</p>
-            <a href="{{ path('blog_show') }}" class="btn btn-primary">Description</a><br>
-        </div>
-    </manga>
-    <manga>
-        <h2>titre du manga</h2>
-        <div class="metadata">Ajouter le 30/01/2019</div>
-        <div class="content">
-            <img src="https://place-hold.it/300x500" alt=""><br>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Animi molestias ex impedit corporis. Delectus, culpa.</p>
-            <p>Quas dicta quisquam laborum aut reiciendis harum,
-                minima officia maxime eaque voluptas, omnis id maiores!</p>
-            <a href="{{ path('blog_show') }}" class="btn btn-primary">Description</a><br>
-        </div>
-    </manga>
-
+    </manga><br>
+    {% endfor %}
 </section>
 {% endblock %}

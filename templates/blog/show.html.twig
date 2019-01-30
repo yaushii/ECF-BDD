@@ -2,10 +2,13 @@
 
 {% block body %}
 <manga>
-    <h2>titre du manga</h2>
+    <h2>{{ manga.title }} </h2>
     <div class="metadata">Ajouter le 30/01/2019</div>
     <div class="content">
         <img src="https://place-hold.it/300x500" alt=""><br>
+        {{ manga.author | raw }}
+        {{ manga.editionF | raw }}
+        {{ manga.editionJ | raw }}
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Animi molestias ex impedit corporis. Delectus, culpa.</p>
         <p>Quas dicta quisquam laborum aut reiciendis harum,
