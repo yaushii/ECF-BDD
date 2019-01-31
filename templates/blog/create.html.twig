@@ -8,7 +8,24 @@
 
 {{ form_start(formManga) }}
 
-{{ form_widget(formManga) }}
+{{ form_row(formManga.title, {'attr': {'placeholder': "titre du manga"}}) }}
+{{ form_row(formManga.author, {'attr': {'placeholder': "auteur du manga"}}) }}
+{{ form_row(formManga.genre, {'attr': {'placeholder': "genre du manga"}}) }}
+{{ form_row(formManga.editionF, {'attr': {'placeholder': "Maison edition française du manga"}}) }}
+{{ form_row(formManga.editionJ, {'attr': {'placeholder': "Maison edition Japonnaise du manga"}}) }}
+
+<button type="submit" class="btn btn-dark btn-success">
+{% if editMode %}
+
+    Enregistrer les modifications
+    
+{% else %}
+
+Ajouter un manga
+
+{% endif %}
+
+</button>
 
 {{ form_end(formManga) }}
 

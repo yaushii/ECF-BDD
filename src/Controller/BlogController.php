@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Manga;
 use App\Repository\MangaRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BlogController extends AbstractController
 {
@@ -36,41 +39,38 @@ class BlogController extends AbstractController
 
     /**
      * @route("blog/new", name="blog_create")
+     * @Route("blog/{id}/edit", name="blog_edit")
      */
     
-    public function create(){
+    public function form(Manga $manga = null, Request $request, ObjectManager $manager) {
+        
+        if (!$manga){
         $manga = new Manga();
+        }
 
         $form = $this->createFormBuilder($manga)
-                    ->add('title', TextType::class, [
-                        'attr' => [
-                        'placeholder' => 'titre du manga'
-                    ]
-                    ])
-                    ->add('author', TextType::class, [
-                        'attr' => [
-                        'placeholder' => 'auteur'
-                        ]
-                    ])
-                    ->add('genre', TextType::class, [
-                        'attr' => [
-                        'placeholder' => 'Genre'
-                        ]
-                    ])
-                    ->add('editionF', TextType::class, [
-                        'attr' => [
-                        'placeholder' => "Maison d'édition Française"
-                        ]
-                    ])
-                    ->add('editionJ', TextType::class, [
-                        'attr' => [
-                        'placeholder' => "Maison d'édition Japonnaise"
-                        ]
-                    ])
+                    ->add('title')
+                    ->add('author')
+                    ->add('genre')
+                    ->add('editionF')
+                    ->add('editionJ')
+                    
                     ->getForm();
 
+        $form->handleRequest($request); 
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($manga);
+            $manager->flush();
+
+            return $this->redirectToRoute('blog_show', ['id'=> $manga->getid
+            ()]);
+        }
+
+
         return $this->render('blog/create.html.twig', [
-            'formManga' => $form->createView()
+            'formManga' => $form->createView(),
+            'editMode' => $manga->getId() !== null
         ]);
     }
 
